@@ -28,10 +28,10 @@ export class RatesService {
   }
 
   public async createRates(rates: CreateRateDto[]): Promise<RateEntity[]> {
-    const entities = rates.map(({ amount }) => {
+    const entities = rates.map(({ price }) => {
       const rate = new RateEntity();
 
-      rate.amount = amount;
+      rate.price = price;
 
       return rate;
     });

@@ -11,7 +11,7 @@ export class RateEntity {
   id: number;
 
   @Column()
-  amount: string;
+  price: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

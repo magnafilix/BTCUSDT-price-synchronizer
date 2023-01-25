@@ -6,5 +6,5 @@ export class Rate {
   id: number;
 
   @Field()
-  amount: string;
+  price: string;
 }
