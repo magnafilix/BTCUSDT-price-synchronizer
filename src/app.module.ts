@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,12 +8,9 @@ import { JobsModule } from './jobs/jobs.module';
 import { RatesModule } from './exchange-rates/exchange-rates.module';
 import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.entity';
 
-/**
- * Add .env variables instead
- */
-
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -21,9 +19,9 @@ import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.enti
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'password',
-      database: 'development',
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
       entities: [ExchangeRateEntity],
       synchronize: true,
     }),
