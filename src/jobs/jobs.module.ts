@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JobsService } from './jobs.service';
-import { RatesModule } from '../exchange-rates/exchange-rates.module';
+import { ExchangeRatesModule } from '../exchange-rates/exchange-rates.module';
 
 @Module({
-  imports: [RatesModule],
+  imports: [ExchangeRatesModule],
   providers: [JobsService],
 })
 export class JobsModule {}

@@ -5,7 +5,7 @@ import { ExchangeRateEntity } from './entities/exchange-rate.entity';
 import { CreateExchangeRateDto } from './dto/create-exchange-rate.dto';
 
 @Injectable()
-export class RatesService {
+export class ExchangeRatesService {
   @InjectRepository(ExchangeRateEntity)
   private readonly repository: Repository<ExchangeRateEntity>;
   private readonly DEFAULT_EXCHANGE_RATE_HISTORY_LIMIT = 25;

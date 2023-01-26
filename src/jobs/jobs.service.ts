@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { BinanceService } from '../exchange-rates/binance.service';
-import { RatesService } from '../exchange-rates/exchange-rates.service';
+import { ExchangeRatesService } from '../exchange-rates/exchange-rates.service';
 
 @Injectable()
 export class JobsService {
@@ -9,7 +9,7 @@ export class JobsService {
 
   constructor(
     private readonly binanceService: BinanceService,
-    private readonly ratesService: RatesService,
+    private readonly exchangeRatesService: ExchangeRatesService,
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
@@ -27,7 +27,7 @@ export class JobsService {
   private async fetchAndStoreTickerData(): Promise<void> {
     try {
       const ticker = await this.binanceService.fetchCurrentTickerData();
-      await this.ratesService.create([ticker]);
+      await this.exchangeRatesService.create([ticker]);
     } catch (error) {
       this.logger.debug(
         'Error when fetching or storing ticker/coin data',

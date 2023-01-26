@@ -5,7 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { JobsModule } from './jobs/jobs.module';
-import { RatesModule } from './exchange-rates/exchange-rates.module';
+import { ExchangeRatesModule } from './exchange-rates/exchange-rates.module';
 import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.entity';
 
 @Module({
@@ -27,7 +27,7 @@ import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.enti
     }),
     ScheduleModule.forRoot(),
     JobsModule,
-    RatesModule,
+    ExchangeRatesModule,
   ],
 })
 export class AppModule {}
