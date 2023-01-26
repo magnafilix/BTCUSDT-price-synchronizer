@@ -9,7 +9,11 @@ Server application which periodically fetches the BTCUSDT price (calling [binanc
 ## Installation
 
 ```bash
+# install dependencies
 $ npm install
+
+# start docker services (only database for now)
+$ docker-compose up -d
 ```
 
 ## Running the app
