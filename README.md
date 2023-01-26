@@ -2,7 +2,7 @@
 
 ## Description
 
-Server application which periodically fetches the BTCUSDT price (calling [binance](https://www.binance.com/en) api) and stores it into database. It also exposes api with:
+Server application which periodically (every 10 seconds) fetches the BTCUSDT price (calling [binance](https://www.binance.com/en) api) and stores it into database. It also exposes api with:
 - current rate
 - exchange rate history
 
