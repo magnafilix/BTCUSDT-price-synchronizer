@@ -8,34 +8,30 @@ import { CreateExchangeRateDto } from './dto/create-exchange-rate.dto';
 export class RatesService {
   @InjectRepository(ExchangeRateEntity)
   private readonly repository: Repository<ExchangeRateEntity>;
+  private readonly DEFAULT_EXCHANGE_RATE_HISTORY_LIMIT = 25;
 
-  public async getCurrentRate(): Promise<string> {
-    /**
-     * either:
-     * - direct binance api call
-     * - most recent record from rate history table
-     */
-
-    const mostRecentRate = await this.repository.findOne({
-      order: { id: 'DESC' },
-    });
-
-    return '20987.34';
+  public async getCurrentExchangeRate(): Promise<ExchangeRateEntity> {
+    return this.repository.findOne({ where: {}, order: { id: 'DESC' } });
   }
 
-  public async getRateHistory(): Promise<ExchangeRateEntity[]> {
-    return this.repository.find();
+  public async getExchangeRateHistory(): Promise<ExchangeRateEntity[]> {
+    return this.repository
+      .createQueryBuilder('exchange_rates')
+      .limit(this.DEFAULT_EXCHANGE_RATE_HISTORY_LIMIT)
+      .orderBy('id', 'DESC')
+      .getMany();
   }
 
-  public async createRates(
-    rates: CreateExchangeRateDto[],
+  public async create(
+    exchangeRates: CreateExchangeRateDto[],
   ): Promise<ExchangeRateEntity[]> {
-    const entities = rates.map(({ price }) => {
-      const rate = new ExchangeRateEntity();
+    const entities = exchangeRates.map((exchangeRate) => {
+      const entity = new ExchangeRateEntity();
 
-      rate.price = price;
+      entity.symbol = exchangeRate.symbol;
+      entity.price = exchangeRate.price;
 
-      return rate;
+      return entity;
     });
 
     return this.repository.save(entities);

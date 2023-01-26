@@ -13,11 +13,26 @@ export class JobsService {
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
-  async handleCron() {
-    const ticker = await this.binanceService.fetchCurrentTickerInfo();
+  async handleCron(): Promise<void> {
+    await this.fetchAndStoreTickerData();
 
-    await this.ratesService.createRates([ticker]);
+    this.logger.debug(`[fetchAndStoreTickerData] jobs run every 10 seconds`);
+  }
 
-    this.logger.debug('Cron job called every 10 seconds');
+  /**
+   * fetchAndStoreTickerData
+   * 1. calls binance api to get current ticker/coin data
+   * 2. stores data to the database
+   */
+  private async fetchAndStoreTickerData(): Promise<void> {
+    try {
+      const ticker = await this.binanceService.fetchCurrentTickerData();
+      await this.ratesService.create([ticker]);
+    } catch (error) {
+      this.logger.debug(
+        'Error when fetching or storing ticker/coin data',
+        error,
+      );
+    }
   }
 }

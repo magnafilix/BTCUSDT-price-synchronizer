@@ -11,7 +11,7 @@ export class BinanceService {
   private readonly BINANCE_API_URL = 'https://api.binance.com';
   private readonly DEFAULT_SYMBOL = 'BTCUSDT';
 
-  public async fetchCurrentTickerInfo(
+  public async fetchCurrentTickerData(
     symbol = this.DEFAULT_SYMBOL,
   ): Promise<TickerInfo> {
     return fetch(
