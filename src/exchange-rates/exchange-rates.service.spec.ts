@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
+import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ExchangeRatesService } from './exchange-rates.service';
 import { ExchangeRateEntity } from './entities/exchange-rate.entity';
@@ -9,11 +9,11 @@ export type MockType<T> = {
   [P in keyof T]?: jest.Mock<{}>;
 };
 
-export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
-  () => ({
-    findOne: jest.fn((entity) => entity),
-  }),
-);
+export const repositoryMockFactory: () => MockType<
+  Repository<ExchangeRateEntity>
+> = jest.fn(() => ({
+  findOne: jest.fn((entity) => entity),
+}));
 
 describe('ExchangeRatesService', () => {
   let service: ExchangeRatesService;
