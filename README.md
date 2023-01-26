@@ -6,6 +6,14 @@ Server application which periodically (every 10 seconds) fetches the BTCUSDT pri
 - current rate
 - exchange rate history
 
+## Tech Stack
+
+- Nest.js
+- TypeScript
+- GraphQL
+- PostgreSQL
+- Typeorm
+
 ## Installation
 
 ```bash
