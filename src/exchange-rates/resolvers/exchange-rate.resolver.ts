@@ -1,6 +1,6 @@
 import { Resolver, Query } from '@nestjs/graphql';
-import { RatesService } from '../rates.service';
-import { Rate } from '../models/rate.model';
+import { RatesService } from '../exchange-rates.service';
+import { Rate } from '../models/exchange-rate.model';
 
 @Resolver()
 export class RateResolver {

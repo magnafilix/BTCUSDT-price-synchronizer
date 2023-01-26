@@ -4,8 +4,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { JobsModule } from './jobs/jobs.module';
-import { RatesModule } from './rates/rates.module';
-import { RateEntity } from './rates/entities/rate.entity';
+import { RatesModule } from './exchange-rates/exchange-rates.module';
+import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.entity';
 
 /**
  * Add .env variables instead
@@ -24,7 +24,7 @@ import { RateEntity } from './rates/entities/rate.entity';
       username: 'postgres',
       password: 'password',
       database: 'development',
-      entities: [RateEntity],
+      entities: [ExchangeRateEntity],
       synchronize: true,
     }),
     ScheduleModule.forRoot(),

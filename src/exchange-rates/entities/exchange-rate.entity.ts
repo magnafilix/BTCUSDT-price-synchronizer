@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity()
-export class RateEntity {
+@Entity({ name: 'exchange_rates' })
+export class ExchangeRateEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  symbol: string;
 
   @Column()
   price: string;

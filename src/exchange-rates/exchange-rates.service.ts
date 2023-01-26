@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RateEntity } from './entities/rate.entity';
-import { CreateRateDto } from './dto/create-rate.dto';
+import { ExchangeRateEntity } from './entities/exchange-rate.entity';
+import { CreateExchangeRateDto } from './dto/create-exchange-rate.dto';
 
 @Injectable()
 export class RatesService {
-  @InjectRepository(RateEntity)
-  private readonly repository: Repository<RateEntity>;
+  @InjectRepository(ExchangeRateEntity)
+  private readonly repository: Repository<ExchangeRateEntity>;
 
   public async getCurrentRate(): Promise<string> {
     /**
@@ -23,13 +23,15 @@ export class RatesService {
     return '20987.34';
   }
 
-  public async getRateHistory(): Promise<RateEntity[]> {
+  public async getRateHistory(): Promise<ExchangeRateEntity[]> {
     return this.repository.find();
   }
 
-  public async createRates(rates: CreateRateDto[]): Promise<RateEntity[]> {
+  public async createRates(
+    rates: CreateExchangeRateDto[],
+  ): Promise<ExchangeRateEntity[]> {
     const entities = rates.map(({ price }) => {
-      const rate = new RateEntity();
+      const rate = new ExchangeRateEntity();
 
       rate.price = price;
 
