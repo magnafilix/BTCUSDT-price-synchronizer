@@ -10,4 +10,7 @@ export class ExchangeRate {
 
   @Field()
   price: string;
+
+  @Field()
+  createdAt: Date;
 }
