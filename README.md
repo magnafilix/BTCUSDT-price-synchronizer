@@ -12,9 +12,13 @@ Server application which periodically (every 10 seconds) fetches the BTCUSDT pri
 - TypeScript
 - GraphQL
 - PostgreSQL
-- Typeorm
+- TypeORM
 
 ## Installation
+
+Create `.env` file (inside the root directory) and copy variables from `.env.example` to `.env`.
+
+Then run following commands:
 
 ```bash
 # install dependencies
