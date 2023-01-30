@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { JobsModule } from './jobs/jobs.module';
 import { ExchangeRatesModule } from './exchange-rates/exchange-rates.module';
-import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.entity';
 
 @Module({
   imports: [
@@ -15,15 +14,19 @@ import { ExchangeRateEntity } from './exchange-rates/entities/exchange-rate.enti
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      entities: [ExchangeRateEntity],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USERNAME'),
+        password: configService.get('DATABASE_PASSWORD'),
+        database: configService.get('DATABASE_NAME'),
+        entities: [], // all entities should be added to type-orm.config.ts file instead
+        autoLoadEntities: true,
+      }),
     }),
     ScheduleModule.forRoot(),
     JobsModule,
