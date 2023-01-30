@@ -22,13 +22,16 @@ $ npm install
 
 # start docker services (only database for now)
 $ docker-compose up -d
+
+# run the migrations
+$ npm run migration:run
 ```
 
 ## TypeORM migrations
 
 ### Generating migration file
 
-To auto-generate a migration file (sync database with all the fresh changes in the entities), run the below command.
+To auto-generate a migration file (sync database with all the fresh changes in the entities):
 
 ```bash
 $ npm run migration:generate --name=NewMigrationName
@@ -38,7 +41,7 @@ After running the above command, make sure to import newly created migration to 
 
 ### Running the migrations
 
-Once we have the migration added to the `migrations` array (above step), we can run the below command to execute it.
+When running the application for first time or once we have the migration added to the `migrations` array (above step):
 
 ```bash
 $ npm run migration:run
@@ -48,7 +51,7 @@ It identifies that the `migrations` array contains a migration that wasn’t exe
 
 ### Reverting the migrations
 
-To revert a migration, use the command below.
+To revert a migration:
 
 ```bash
 $ npm run migration:revert
@@ -58,13 +61,13 @@ It executes the `down` method in the latest performed migration and removes the 
 
 ### Creating the migrations manually
 
-To create a migration manually, use the command below.
+To create a migration manually:
 
 ```bash
 $ npm run migration:create --name=NewMigrationName
 ```
 
-In addition to automatically generating the migration for us, we can write its logic (SQL queries) manually.
+In addition to automatically generating the migration for us, we can write its logic (SQL `up` and `down` methods queries) manually.
 
 ## Running the app
 
